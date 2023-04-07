@@ -12,6 +12,11 @@ export const config: PonderConfig = {
       chainId: 1,
       rpcUrl: process.env.PONDER_RPC_URL_1,
     },
+    {
+      name: "arbitrum",
+      chainId: 42161,
+      rpcUrl: process.env.PONDER_RPC_URL_42161,
+    },
   ],
   contracts: [
     // {
@@ -29,6 +34,13 @@ export const config: PonderConfig = {
     //   startBlock: 2958571,
     // },
     {
+      name: "SchemaRegistry",
+      network: "mainnet",
+      abi: "./abis/SchemaRegistry.json",
+      address: "0xa7b39296258348c78294f95b872b282326a97bdf",
+      startBlock: 16756726,
+    },
+    {
       name: "EAS",
       network: "mainnet",
       abi: "./abis/EAS.json",
@@ -37,10 +49,17 @@ export const config: PonderConfig = {
     },
     {
       name: "SchemaRegistry",
-      network: "mainnet",
+      network: "arbitrum",
       abi: "./abis/SchemaRegistry.json",
-      address: "0xa7b39296258348c78294f95b872b282326a97bdf",
-      startBlock: 16756728,
+      address: "0xA310da9c5B885E7fb3fbA9D66E9Ba6Df512b78eB",
+      startBlock: 64528381,
+    },
+    {
+      name: "EAS",
+      network: "arbitrum",
+      abi: "./abis/EAS.json",
+      address: "0xbD75f629A22Dc1ceD33dDA0b68c546A1c035c458",
+      startBlock: 64528381,
     },
   ],
 };

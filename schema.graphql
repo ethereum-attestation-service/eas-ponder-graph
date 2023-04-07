@@ -10,6 +10,7 @@ type Attestation @entity {
   refUID: Bytes!
   revoked: Boolean!
   txid: Bytes!
+  chainID: Int!
 }
 
 type Schema @entity {
@@ -20,4 +21,5 @@ type Schema @entity {
   time: BigInt!
   revocable: Boolean!
   txid: Bytes!
+  chainID: Int!
 }
