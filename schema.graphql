@@ -1,4 +1,23 @@
-type ExampleEntity @entity {
+type Attestation @entity {
   id: String!
-  name: String!
+  data: Bytes!
+  schema: Schema
+  recipient: Bytes! # address
+  attester: Bytes! # address
+  time: BigInt!
+  expirationTime: BigInt!
+  revocationTime: BigInt!
+  refUID: Bytes!
+  revoked: Boolean!
+  txid: Bytes!
+}
+
+type Schema @entity {
+  id: String!
+  schema: String!
+  creator: String! # address
+  resolver: String! # address
+  time: BigInt!
+  revocable: Boolean!
+  txid: Bytes!
 }
