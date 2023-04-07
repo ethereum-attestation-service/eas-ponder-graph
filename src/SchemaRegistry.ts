@@ -3,17 +3,12 @@ import { ponder } from "@/generated";
 ponder.on("SchemaRegistry:Registered", async ({ event, context }) => {
   const { Schema } = context.entities;
 
-  // const entity = await Schema.findUnique({
-  //   id: `${event.params.uid}_${event.transaction.chainId}`,
-  // });
-  //
-  // if (entity == null) {
   const schema = await context.contracts.SchemaRegistry.getSchema(
     event.params.uid
   );
 
   await Schema.create({
-    id: `${event.params.uid}_${event.transaction.chainId}`,
+    id: event.params.uid,
     data: {
       creator: event.transaction.from,
       schema: schema.schema,
@@ -28,5 +23,4 @@ ponder.on("SchemaRegistry:Registered", async ({ event, context }) => {
   console.log(
     `Schema ${event.params.uid} created on chain ${event.transaction.chainId}!`
   );
-  // }
 });

@@ -3,17 +3,12 @@ import { ponder } from "@/generated";
 ponder.on("EAS:Attested", async ({ event, context }) => {
   const { Attestation } = context.entities;
 
-  // const entity = await Attestation.findUnique({
-  //   id: `${event.params.uid}_${event.transaction.chainId}`,
-  // });
-  //
-  // if (entity == null) {
   const attestation = await context.contracts.EAS.getAttestation(
     event.params.uid
   );
 
   await Attestation.create({
-    id: `${event.params.uid}_${event.transaction.chainId}`,
+    id: event.params.uid,
     data: {
       data: attestation.data,
       time: attestation.time,
@@ -24,7 +19,7 @@ ponder.on("EAS:Attested", async ({ event, context }) => {
       revoked: false,
       attester: attestation.attester,
       recipient: attestation.recipient,
-      schema: `${attestation.schema}_${event.transaction.chainId}`,
+      schema: `${attestation.schema}`,
       chainID: event.transaction.chainId,
     },
   });
@@ -32,14 +27,13 @@ ponder.on("EAS:Attested", async ({ event, context }) => {
   console.log(
     `Attestation ${event.params.uid} created on chain ${event.transaction.chainId}!`
   );
-  // }
 });
 
 ponder.on("EAS:Revoked", async ({ event, context }) => {
   const { Attestation } = context.entities;
 
   let entity = await Attestation.findUnique({
-    id: `${event.params.uid}_${event.transaction.chainId}`,
+    id: event.params.uid,
   });
 
   if (!entity) {
@@ -47,7 +41,7 @@ ponder.on("EAS:Revoked", async ({ event, context }) => {
   }
 
   await Attestation.update({
-    id: `${event.params.uid}_${event.transaction.chainId}`,
+    id: event.params.uid,
     data: {
       revoked: true,
     },
